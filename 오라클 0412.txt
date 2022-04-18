@@ -1,0 +1,25 @@
+alter session set "_ORACLE_SCRIPT"=true; 세션을 바꿔줌
+
+create user ora_user identified by 1234; 유저 ora_user는 1234로 비밀번호를 가진 유저를 생성(사용자생성)
+
+grant connect,resource,dba to ora_user; connect를 해주지않으면 ora_user로 접속할 수 없음(권한부여)
+
+
+<오라클 시작>
+-데이블생성-
+* varchart2는 가상이기 때문에 데이터 공간을 크게 차지하지않음, 한글(3byte)를 10글자 쓰고 싶다면 기본 30byte를 가져와야함
+* char은 고정이기 때문에 공간이 남아도 빈공간으로 남겨둠
+* number: 숫자에 대함 (실수, 정수 모두 해당함)
+
+insert into member(id,pw,name,phone) values(
+'aaa','1111','홍길동','010-1111-1111'); // 아직파일이 저장되지 않은 상태 ==> 외부(cmd창)에서 접근하면 나타나지않음
+
+commit; // DB에 확실히 저장시켜줌 (커밋을 하지않으면 아직 대기상태)
+==> commit하면 db에 저장하는순간 메모리를 싹지워버림
+
+rollback; // 저장된 메모리를 날려줌, commit전까지 지워줌
+
+** primary key를 중복해서 넣게 되면 무결성 제약 조건에 위배됨
+** null은 빈공백을 의미하는게 아님
+
+** 해당데이터를 클릭해서 제약조건을 살펴보면 primary key가 무엇인지 알수 있음
